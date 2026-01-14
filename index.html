@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>nArchive_SYSTEM</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --phosphor-main: #ffb000; 
+            --phosphor-dim: #996a00;
+            --bg-color: #0c0c0c;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--phosphor-main);
+            font-family: 'VT323', monospace;
+            margin: 0;
+            padding: 20px;
+            overflow-x: hidden;
+            font-size: 1.2rem;
+            line-height: 1.2;
+            text-shadow: 0 0 2px var(--phosphor-dim);
+            cursor: text;
+        }
+
+        /* Container to limit width like an old screen */
+        .terminal {
+            max-width: 900px;
+            margin: 0 auto;
+            border: 2px solid var(--phosphor-main);
+            padding: 20px;
+            min-height: 90vh;
+            position: relative;
+            box-shadow: 0 0 20px rgba(255, 176, 0, 0.2);
+            background-color: rgba(12, 12, 12, 0.9);
+        }
+
+        /* Links styling */
+        a {
+            color: var(--phosphor-main);
+            text-decoration: none;
+            display: block; /* Makes the whole row clickable area */
+            width: 100%;
+            transition: all 0.1s;
+        }
+
+        a:hover {
+            background-color: var(--phosphor-main);
+            color: var(--bg-color);
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        /* ASCII Header Styling */
+        .ascii-art {
+            white-space: pre;
+            font-size: 14px;
+            line-height: 12px;
+            margin-bottom: 20px;
+            overflow-x: hidden;
+            font-weight: bold;
+        }
+
+        /* Table/Index Layout */
+        .file-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        .file-table th {
+            text-align: left;
+            border-bottom: 2px dashed var(--phosphor-main);
+            padding-bottom: 10px;
+            text-transform: uppercase;
+        }
+
+        .file-table td {
+            padding: 5px 0;
+        }
+
+        /* Helper classes */
+        .right { text-align: right; }
+        
+        /* Blinking Cursor Animation */
+        .cursor {
+            display: inline-block;
+            width: 10px;
+            height: 1.2rem;
+            background-color: var(--phosphor-main);
+            animation: blink 1s step-end infinite;
+            vertical-align: text-bottom;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+
+        /* CRT Scanline Overlay Effect */
+        .scanlines {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: linear-gradient(
+                to bottom,
+                rgba(255,255,255,0),
+                rgba(255,255,255,0) 50%,
+                rgba(0,0,0,0.2) 50%,
+                rgba(0,0,0,0.2)
+            );
+            background-size: 100% 4px;
+            pointer-events: none;
+            z-index: 999;
+        }
+
+        /* Footer Prompt */
+        .prompt-line {
+            margin-top: 40px;
+            border-top: 1px solid var(--phosphor-main);
+            padding-top: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- CRT Visual Overlay -->
+    <div class="scanlines"></div>
+
+    <div class="terminal">
+        <!-- ASCII Logo -->
+        <div class="ascii-art">
+             _             _     _           
+     _ __   / \   _ __ ___| |__ (_)_   _____ 
+    | '_ \ / _ \ | '__/ __| '_ \| \ \ / / _ \
+    | | | / ___ \| | | (__| | | | |\ V /  __/
+    |_| |/_/   \_\_|  \___|_| |_|_| \_/ \___|
+                                             
+  SYSTEM: TOSHIBA Satellite L645
+  CPU: Intel Core i5 520M
+  RAM: 8192MB
+  GPU: iGPU Intel HD [PHDGD QUANTIC 3 Driver]
+  OS: Windows 10 iOT LTSC + Devuan Excalibur 6
+  STATUS: Online
+        </div>
+
+        <p>WELCOME TO nARCHIVE. SELECT INDEX TO INITIALIZE DOWNLOAD.</p>
+        <br>
+
+        <!-- FILE LIST START -->
+        <table class="file-table">
+            <thead>
+                <tr>
+                    <th style="width: 55%">INDEX / ARCHIVE NAME</th>
+                    <th style="width: 15%">FMT</th>
+                    <th style="width: 15%">SIZE</th>
+                    <th style="width: 15%" class="right">DATE</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Parent Directory Link -->
+                <tr>
+                    <td><a href="../">[..] PARENT DIR</a></td>
+                    <td>DIR</td>
+                    <td>-</td>
+                    <td class="right">----</td>
+                </tr>
+
+                
+                <tr>
+                    <td><a href="https://example.com/images">/DRIVER/PHDGD QUANTIC 3 Driver</a></td>
+                    <td>DIR</td>
+                    <td>34 MB</td>
+                    <td class="right">09-07-2016</td>
+                </tr>
+
+                <tr>
+                    <td><a href="https://example.com/docs">Time_Adjust.bat</a></td>
+                    <td>BAT</td>
+                    <td>1,25 KB</td>
+                    <td class="right">29-12-2025</td>
+                </tr>
+
+                <tr>
+                    <td><a href="https://example.com/music">/AUDIO/SYNTHWAVE_MIX</a></td>
+                    <td>DIR</td>
+                    <td>800 MB</td>
+                    <td class="right">2023-10-31</td>
+                </tr>
+
+                <tr>
+                    <td><a href="#">SECRET_CODES.TXT</a></td>
+                    <td>TXT</td>
+                    <td>2 KB</td>
+                    <td class="right">1988-01-15</td>
+                </tr>
+
+                <tr>
+                    <td><a href="#">SYSTEM_DUMP_FINAL.ISO</a></td>
+                    <td>ISO</td>
+                    <td>4.2 GB</td>
+                    <td class="right">1999-12-31</td>
+                </tr>
+                
+            </tbody>
+        </table>
+
+        <div class="prompt-line">
+            <p>5 INDEXES FOUND.</p>
+            <br>
+            <span>A:\nARCHIVE></span> <span class="cursor"></span>
+        </div>
+    </div>
+
+</body>
+</html>
